@@ -1,14 +1,19 @@
 name: Events Demo 1
+
 on:
   pull_request:
-    types: -opened
-    branches: -main
-      -dev
+    types:
+      - opened
+    branches:
+      - master
+      - dev
   workflow_dispatch:
   push:
-    branches: -main
-      -dev
-    paths: -'.github/workflows/*'
+    branches:
+      - master
+      - dev
+    paths:
+      - ".github/workflows/*"
 
 jobs:
   deploy:
@@ -16,5 +21,6 @@ jobs:
     steps:
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
+
       - name: Deploy project
         run: echo "Deploying..."
