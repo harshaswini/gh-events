@@ -3,18 +3,19 @@ name: Events Demo 1
 on:
   pull_request:
     types: opened
+    branches: -main
+      -dev
   workflow_dispatch:
+  push:
+    branches: -main
+      -dev
+    paths: -'.github/workflows/*'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Set PowerShell Execution Policy
-        shell: pwsh
-        run: Set-ExecutionPolicy RemoteSigned -Scope Process -Force
       - name: Output event data
         run: echo "${{ toJSON(github.event) }}"
-      - name: Get code
-        run: npm run build
       - name: Deploy project
         run: echo "Deploying..."
